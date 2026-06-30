@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon forfait jours CYIM · Guide à l'usage des cadres</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  :root{
+    --navy:#1E4E66;
+    --navy-700:#163a4d;
+    --mint:#30DD92;
+    --mint-700:#16915e;
+    --mint-soft:#e4fbf0;
+    --navy-soft:#eaf1f5;
+    --grey:#5a6b73;
+    --ink:#33454d;
+    --line:#d7e0e4;
+    --bg:#f6f9fa;
+    --white:#ffffff;
+    --no:#e57373;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:Calibri,Verdana,"Segoe UI",sans-serif;color:var(--navy);background:var(--bg);line-height:1.55;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px;}
+
+  /* ===== ONGLETS ===== */
+  .tabbar{position:sticky;top:0;z-index:60;background:var(--navy);box-shadow:0 2px 12px rgba(30,78,102,.22);}
+  .tabbar .inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 18px;min-height:58px;flex-wrap:wrap;}
+  .tabbar .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:.98rem;padding:8px 0;}
+  .tabbar .logo img{width:30px;height:30px;border-radius:7px;flex:none;}
+  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:7px 0;}
+  nav.tabs a{color:#cfe0e8;text-decoration:none;font-size:.85rem;font-weight:600;padding:8px 13px;border-radius:24px;transition:.16s;white-space:nowrap;}
+  nav.tabs a:hover{color:#fff;background:var(--navy-700);}
+  nav.tabs a.active{background:var(--mint);color:var(--navy);}
+  .burger{display:none;margin-left:auto;background:var(--navy-700);border:1.5px solid #2a576e;color:#fff;border-radius:8px;padding:8px 12px;font-size:1.1rem;cursor:pointer;}
+
+  /* ===== HEADER ===== */
+  header.hero{background:var(--navy);color:var(--white);border-radius:0 0 20px 20px;padding:42px 30px 36px;text-align:center;margin-bottom:8px;}
+  header.hero .tag{display:inline-block;background:var(--mint);color:var(--navy);font-weight:700;font-size:.76rem;letter-spacing:.5px;text-transform:uppercase;padding:5px 15px;border-radius:30px;margin-bottom:16px;}
+  header.hero h1{font-size:1.9rem;font-weight:700;margin-bottom:12px;line-height:1.2;}
+  header.hero p.sub{color:#cfe0e8;font-size:1.04rem;margin:0 auto;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:22px;}
+  .hero-meta .chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:.82rem;font-weight:600;padding:7px 14px;border-radius:24px;}
+  .hero-meta .chip b{color:var(--mint);}
+  .hero-actions{margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:.9rem;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;text-decoration:none;border:2px solid transparent;transition:.16s;}
+  .btn-mint{background:var(--mint);color:var(--navy);}
+  .btn-mint:hover{background:#27c281;}
+  .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
+  .btn-ghost:hover{background:rgba(255,255,255,.12);}
+
+  /* ===== SECTIONS ===== */
+  h2.section{font-size:1.42rem;color:var(--navy);margin:46px 0 8px;padding-bottom:10px;border-bottom:3px solid var(--mint);display:flex;align-items:center;gap:11px;}
+  h2.section .ico{background:var(--mint-soft);width:40px;height:40px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;font-size:1.25rem;flex:none;}
+  .lead{color:var(--grey);font-size:.99rem;margin:0 0 20px;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px 22px;border-top:4px solid var(--mint);}
+  .card h3{font-size:1.07rem;margin-bottom:8px;color:var(--navy);display:flex;align-items:center;gap:9px;}
+  .card h3 .e{font-size:1.15rem;}
+  .card .big{font-size:1.5rem;font-weight:700;color:var(--mint-700);display:block;line-height:1.15;margin-bottom:6px;}
+  .card p{font-size:.95rem;color:var(--grey);margin-bottom:9px;}
+  .card p:last-of-type{margin-bottom:0;}
+  .card p strong{color:var(--navy);}
+  .card ul{margin:4px 0 9px 18px;font-size:.93rem;color:var(--grey);}
+  .card ul li{margin-bottom:5px;}
+  .card .src{display:block;margin-top:12px;font-size:.78rem;color:var(--grey);font-style:italic;border-top:1px dashed var(--line);padding-top:8px;}
+  .card .btn-link{margin-top:6px;display:inline-flex;align-items:center;gap:7px;background:var(--navy);color:#fff;font-weight:700;font-size:.84rem;padding:9px 15px;border-radius:9px;text-decoration:none;border:none;cursor:pointer;font-family:inherit;}
+  .card .btn-link:hover{background:var(--navy-700);}
+
+  .note{font-size:.92rem;color:var(--ink);background:var(--navy-soft);padding:13px 17px;border-radius:10px;border-left:4px solid var(--navy);margin-top:16px;}
+  .note.mint{background:var(--mint-soft);border-left-color:var(--mint);}
+  .note strong{color:var(--navy);}
+
+  /* ===== SIMULATEUR ===== */
+  .sim{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:4px;}
+  .sim-top{padding:22px 24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;border-bottom:1px solid var(--line);}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  .field label{font-size:.82rem;color:var(--navy);font-weight:700;}
+  .field select,.field input[type=number]{font-family:inherit;background:var(--white);border:1.5px solid var(--line);color:var(--navy);border-radius:9px;padding:10px 13px;font-size:1rem;font-weight:600;min-width:110px;}
+  .field select:focus,.field input:focus{outline:2px solid var(--mint);border-color:var(--mint);}
+  .field .hint{font-size:.76rem;color:var(--grey);font-weight:400;}
+  .field .pct{color:var(--mint-700);font-weight:700;}
+  .hero-result{margin-left:auto;background:var(--navy);color:#fff;border-radius:14px;padding:16px 26px;text-align:center;min-width:160px;}
+  .hero-result .v{font-size:2.6rem;font-weight:700;color:var(--mint);line-height:1;}
+  .hero-result .k{font-size:.82rem;color:#cfe0e8;margin-top:6px;}
+  .mini-readout{display:flex;gap:24px;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--bg);font-size:.86rem;color:var(--grey);flex-wrap:wrap;}
+  .mini-readout b{color:var(--navy);font-size:1rem;}
+  .sim-body{padding:20px 24px;}
+  .legend{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:15px;font-size:.83rem;color:var(--grey);}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .legend i{width:13px;height:13px;border-radius:4px;display:inline-block;}
+  .cal{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+  .month{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px;}
+  .month h4{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--navy);margin-bottom:7px;text-align:center;font-weight:700;}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+  .d{aspect-ratio:1;border-radius:3px;background:#dfe5ee;}
+  .d.work{background:var(--navy);}
+  .d.rest{background:var(--mint);}
+  .d.ferie{background:var(--no);}
+  .d.we{background:#dfe5ee;opacity:.5;}
+  .sim-foot{padding:15px 24px;border-top:1px solid var(--line);font-size:.83rem;color:var(--grey);background:var(--bg);}
+  .sim-foot b{color:var(--navy);}
+
+  /* ===== SIMULATEUR DEPLACEMENTS ===== */
+  .depsim{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:18px;border-top:4px solid var(--mint);}
+  .depsim .ds-head{padding:20px 24px 6px;}
+  .depsim .ds-head h3{color:var(--navy);font-size:1.12rem;margin-bottom:4px;}
+  .depsim .ds-head p{color:var(--grey);font-size:.92rem;}
+  .ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .ds-questions{padding:18px 24px 22px;}
+  .qblock{margin-bottom:18px;}
+  .qblock>.qlabel{font-size:.86rem;font-weight:700;color:var(--navy);margin-bottom:9px;display:block;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .opt{font-family:inherit;font-size:.86rem;font-weight:600;color:var(--navy);background:var(--white);border:1.5px solid var(--line);border-radius:24px;padding:9px 15px;cursor:pointer;transition:.15s;}
+  .opt:hover{border-color:var(--mint);}
+  .opt.sel{background:var(--mint);border-color:var(--mint);color:var(--navy);}
+  .ds-result{background:var(--navy);color:#fff;padding:22px 24px;display:flex;flex-direction:column;justify-content:center;}
+  .ds-result .rtitle{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--mint);font-weight:700;margin-bottom:12px;}
+  .ds-result .ritem{display:flex;gap:11px;align-items:flex-start;margin-bottom:13px;font-size:.95rem;line-height:1.45;}
+  .ds-result .ritem:last-child{margin-bottom:0;}
+  .ds-result .ricon{flex:none;width:26px;height:26px;border-radius:7px;background:rgba(48,221,146,.18);color:var(--mint);display:grid;place-items:center;font-size:.9rem;font-weight:700;}
+  .ds-result .rmuted{color:#cfe0e8;font-size:.86rem;}
+  .ds-result .rnone{color:#cfe0e8;font-size:.93rem;font-style:italic;}
+  .ds-result b{color:#fff;}
+  .ds-foot{padding:13px 24px;border-top:1px solid var(--line);background:var(--bg);font-size:.8rem;color:var(--grey);}
+
+  /* ===== STEPS ===== */
+  .steps{counter-reset:s;display:grid;gap:13px;margin-top:4px;}
+  .step{display:flex;gap:15px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:17px 19px;border-left:4px solid var(--mint);}
+  .step::before{counter-increment:s;content:counter(s);font-weight:700;width:34px;height:34px;flex:none;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1rem;}
+  .step h3{font-size:1rem;color:var(--navy);margin-bottom:3px;}
+  .step p{font-size:.92rem;color:var(--grey);}
+
+  /* ===== FAQ ===== */
+  .faq-item{background:var(--white);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
+  .faq-item.open{border-color:var(--mint);box-shadow:0 4px 14px rgba(30,78,102,.07);}
+  .faq-q{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;font-weight:600;font-size:1rem;user-select:none;color:var(--navy);}
+  .faq-q:hover{background:var(--navy-soft);}
+  .faq-num{flex:none;width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;}
+  .faq-q .qtext{flex:1;}
+  .faq-q .arrow{flex:none;color:var(--mint);font-size:1.5rem;line-height:1;transition:transform .25s;}
+  .faq-item.open .faq-q .arrow{transform:rotate(45deg);}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease;}
+  .faq-item.open .faq-a{grid-template-rows:1fr;}
+  .faq-a>div{overflow:hidden;min-height:0;}
+  .faq-a-inner{padding:0 20px 18px 64px;font-size:.95rem;color:var(--ink);}
+  .faq-a-inner p{margin-bottom:9px;}
+  .faq-a-inner p:last-child{margin-bottom:0;}
+  .faq-a-inner strong{color:var(--navy);}
+  .badge{display:inline-block;font-weight:700;font-size:.76rem;padding:3px 12px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px;}
+  .badge.oui{background:var(--mint-soft);color:var(--mint-700);}
+  .badge.non{background:#fdecea;color:#c0392b;}
+  .badge.nuance{background:#fff4e0;color:#b9770e;}
+  .controls{display:flex;gap:10px;justify-content:flex-end;margin:0 0 12px;}
+  .ctrl-btn{background:var(--white);border:1px solid var(--line);color:var(--navy);font-family:inherit;font-size:.82rem;font-weight:600;padding:7px 14px;border-radius:8px;cursor:pointer;}
+  .ctrl-btn:hover{background:var(--navy-soft);}
+
+  /* ===== RH ===== */
+  .rh{margin-top:44px;background:var(--white);border:1px solid var(--line);border-radius:16px;border-top:4px solid var(--mint);padding:26px 28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+  .rh .ico{font-size:2rem;flex:none;}
+  .rh h3{color:var(--navy);font-size:1.15rem;margin-bottom:4px;}
+  .rh p{color:var(--grey);font-size:.95rem;}
+  .rh a.mail{color:var(--mint-700);font-weight:700;text-decoration:none;}
+  .rh a.mail:hover{text-decoration:underline;}
+  .rh .btn-mail{margin-left:auto;}
+  .rh .btn-mail a{background:var(--navy);color:#fff;font-weight:700;font-size:.9rem;padding:11px 20px;border-radius:10px;text-decoration:none;display:inline-block;}
+  .rh .btn-mail a:hover{background:var(--navy-700);}
+
+  footer{margin-top:44px;text-align:center;font-size:.82rem;color:var(--grey);border-top:1px solid var(--line);padding:22px 0 50px;}
+  footer a{color:var(--mint-700);text-decoration:none;font-weight:600;}
+
+  @media(max-width:820px){
+    .cal{grid-template-columns:repeat(3,1fr);}
+    nav.tabs{display:none;width:100%;}
+    nav.tabs.open{display:flex;flex-direction:column;gap:5px;padding-bottom:12px;}
+    .burger{display:block;}
+    .hero-result{margin-left:0;width:100%;}
+    .rh .btn-mail{margin-left:0;width:100%;}
+    .ds-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:520px){
+    header.hero h1{font-size:1.45rem;}
+    .cal{grid-template-columns:repeat(2,1fr);}
+    .faq-a-inner{padding-left:20px;}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<!-- ONGLETS -->
+<div class="tabbar">
+  <div class="inner">
+    <div class="logo"><img src="favicon.svg" alt="CYIM"> Forfait jours CYIM</div>
+    <button class="burger" id="burger" aria-label="Menu">≡</button>
+    <nav class="tabs" id="tabs">
+      <a href="#principe" class="active">Le principe</a>
+      <a href="#simulateur">Simulateur</a>
+      <a href="#repos">Repos &amp; déconnexion</a>
+      <a href="#droits">Mes droits</a>
+      <a href="#deplacements">Déplacements &amp; congrès</a>
+      <a href="#astreinte">Astreinte</a>
+      <a href="#alerte">En cas de surcharge</a>
+      <a href="#faq">Questions</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Guide pratique RH · Personnel cadre</span>
+    <h1>Synthèse de l'accord d'entreprise CYIM pour les cadres</h1>
+    <p class="sub">Comprendre votre forfait annuel en jours : combien de jours vous travaillez, vos repos, vos droits en déplacement et en congrès, et vers qui vous tourner en cas de difficulté.</p>
+    <div class="hero-meta">
+      <span class="chip"><b>218</b> jours travaillés / an</span>
+      <span class="chip">journée de solidarité <b>incluse</b></span>
+      <span class="chip">plafond <b>235</b> jours</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-mint" href="#simulateur">Calculer mes jours de repos</a>
+      <a class="btn btn-ghost" href="Accord_entreprise_CYIM_amenagement_temps_de_travail.pdf" target="_blank" rel="noopener">Lire l'accord complet</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- PRINCIPE -->
+  <h2 class="section" id="principe"><span class="ico">🧭</span>Le principe : compter des jours, pas des heures</h2>
+  <p class="lead">Le forfait annuel en jours est une organisation du temps de travail réservée aux cadres autonomes. Chez CYIM, il concerne les cadres relevant des positions 1, 2 et 3 de la grille SYNTEC, dont l'autonomie est telle que la durée de travail ne peut pas être fixée à l'avance.</p>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="e">📅</span> Une cible annuelle</h3>
+      <span class="big">218 jours</span>
+      <p>travaillés sur l'année civile, du 1ᵉʳ janvier au 31 décembre, <strong>journée de solidarité comprise</strong>, pour une année complète avec un droit complet à congés payés. Une demi-journée correspond à un travail finissant avant 14 h ou débutant après 12 h.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.1 et 2.2.1.2</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🔑</span> Vous êtes autonome</h3>
+      <p>Vous organisez votre temps de travail à l'intérieur de ce forfait. Cette autonomie reste cependant encadrée :</p>
+      <ul>
+        <li>vous travaillez dans le cadre de l'organisation et des priorités fixées par CYIM, et restez joignable selon les besoins du service ;</li>
+        <li>vous tenez compte des réunions, échéances clients et événements planifiés ;</li>
+        <li>vos repos et vos jours de repos doivent être pris dans l'année.</li>
+      </ul>
+      <p>Autrement dit, vous choisissez largement votre emploi du temps, mais sans faire abstraction des contraintes de l'activité.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.1</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🚫</span> Ce qui ne s'applique pas</h3>
+      <p>Pas de 35 h, pas d'heures supplémentaires, pas de durée maximale quotidienne ni hebdomadaire. <strong>En contrepartie</strong>, votre charge de travail et l'amplitude de vos journées doivent rester raisonnables.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.3 · Code du travail, art. L.3121-62</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">📄</span> Votre forfait est écrit</h3>
+      <p>Le forfait jours repose sur une <strong>convention individuelle écrite</strong>, intégrée à votre contrat ou à un avenant. Elle indique le nombre de jours travaillés et la rémunération forfaitaire correspondante.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.10</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">📆</span> Vos jours de repos</h3>
+      <p>Au-delà des congés payés et des week-ends, votre forfait vous donne des <strong>jours de repos</strong>. Leur nombre se recalcule chaque année selon le calendrier. Pour <span id="anneeRef">2026</span>, cela représente <strong><span id="reposRef">9</span> jours de repos</strong> pour un forfait complet de 218 jours.</p>
+      <button class="btn-link" onclick="document.getElementById('simulateur').scrollIntoView();">Voir le calcul détaillé</button>
+    </div>
+  </div>
+
+  <!-- SIMULATEUR -->
+  <h2 class="section" id="simulateur"><span class="ico">🧮</span>Combien de jours de repos cette année ?</h2>
+  <p class="lead">Vos jours de repos s'ajustent chaque année pour que vous atteigniez exactement votre forfait. Indiquez votre forfait (218 jours en temps plein, ou moins en forfait réduit) et choisissez l'année.</p>
+  <div class="sim">
+    <div class="sim-top">
+      <div class="field">
+        <label for="annee">Année</label>
+        <select id="annee">
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="forfait">Votre forfait (jours travaillés / an)</label>
+        <input type="number" id="forfait" min="50" max="218" step="1" value="218">
+        <span class="hint">218 = temps plein · saisissez moins pour un forfait réduit <span class="pct" id="pct">(100 %)</span></span>
+      </div>
+      <div class="hero-result">
+        <div class="v" id="roRepos">9</div>
+        <div class="k">jours de repos forfait</div>
+      </div>
+    </div>
+    <div class="mini-readout">
+      <span>Jours travaillables dans l'année : <b id="roTrav">227</b></span>
+      <span>Jours fériés tombant en semaine : <b id="roFeries">9</b></span>
+    </div>
+    <div class="sim-body">
+      <div class="legend">
+        <span><i style="background:var(--navy)"></i> Jour travaillé</span>
+        <span><i style="background:var(--mint)"></i> Jour de repos forfait</span>
+        <span><i style="background:var(--no)"></i> Férié en semaine</span>
+        <span><i style="background:#dfe5ee"></i> Week-end</span>
+      </div>
+      <div class="cal" id="cal"></div>
+    </div>
+    <div class="sim-foot">
+      Méthode (accord CYIM, art. 2.2.1.2) : on part des <b>365 ou 366 jours</b> de l'année, on retire les <b>samedis et dimanches</b>, les <b>jours fériés tombant en semaine</b>, puis les <b>25 jours ouvrés de congés payés</b>. On obtient les jours travaillables, et les <b>jours de repos = jours travaillables − forfait</b>. En cas d'année incomplète (arrivée ou départ en cours d'année), le forfait est proratisé : 218 × semaines travaillées / 47.
+    </div>
+  </div>
+
+  <!-- REPOS -->
+  <h2 class="section" id="repos"><span class="ico">🌙</span>Vos repos et votre droit à la déconnexion</h2>
+  <p class="lead">Même autonome, vous gardez des temps de repos garantis par l'accord. Ce sont des droits sur lesquels vous pouvez vous appuyer.</p>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="e">🌙</span> Repos quotidien : 11 h</h3>
+      <p>Au moins <strong>11 heures consécutives</strong> de repos entre deux journées de travail. Si vous constatez que vous ne pouvez pas les respecter, prévenez sans délai votre responsable pour trouver une solution.</p>
+      <span class="src">Accord CYIM, art. 2.1.5 et 2.2.1.4</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🗓️</span> Repos hebdomadaire : 35 h</h3>
+      <p>Chaque semaine, vous avez droit à un <strong>repos hebdomadaire d'au moins 24 heures consécutives</strong>. En s'ajoutant aux 11 h de repos quotidien, cela représente <strong>au minimum 35 heures de repos consécutives par semaine</strong>. Vous ne pouvez jamais travailler plus de 6 jours par semaine.</p>
+      <span class="src">Accord CYIM, art. 2.1.6 et 2.2.1.4</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">📵</span> Droit à la déconnexion</h3>
+      <p>Les outils professionnels (ordinateur, tablette, téléphone) <strong>ne sont pas destinés à être utilisés pendant vos temps de repos</strong> : soirs, week-ends, congés, jours fériés chômés. Vous avez le droit de ne pas répondre aux sollicitations sur ces périodes.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.7</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">⚖️</span> Charge et amplitude raisonnables</h3>
+      <p>Votre charge de travail et l'amplitude de vos journées doivent rester raisonnables et permettre de concilier vie professionnelle et vie personnelle. <strong>Votre manager en est responsable</strong> : la charge est revue chaque mois avec lui, et un <strong>point annuel</strong> est dédié à ce sujet. N'attendez pas ce rendez-vous pour lui signaler une difficulté : l'échange régulier est le meilleur moyen d'ajuster.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.3 et 2.2.1.13</span>
+    </div>
+  </div>
+
+  <!-- DROITS -->
+  <h2 class="section" id="droits"><span class="ico">💼</span>Rémunération, jours de repos, renonciation</h2>
+  <p class="lead">Ce que vous percevez, ce que vous posez, et ce que personne ne peut vous imposer.</p>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="e">💶</span> Une rémunération forfaitaire</h3>
+      <p>Votre salaire est <strong>forfaitaire</strong> : il rémunère vos 218 jours de travail dans l'année, sans paiement d'heures supplémentaires. Comme votre temps n'est pas décompté en heures et que vos journées peuvent être longues, ce salaire doit rester <strong>cohérent avec la charge de travail demandée</strong>.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.12</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">📈</span> Au moins 120 % du minimum</h3>
+      <p>Parce que vous êtes au forfait jours (positions 1 à 3), la convention SYNTEC vous garantit une rémunération qui <strong>ne peut pas être inférieure à 120 % du salaire minimum de votre coefficient</strong>. C'est un plancher : votre salaire réel peut bien sûr être plus élevé.</p>
+      <span class="src">Convention collective SYNTEC (IDCC 1486)</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🏖️</span> Poser vos jours de repos</h3>
+      <p>Vous pouvez poser des journées ou demi-journées. Deux règles à respecter :</p>
+      <ul>
+        <li><strong>1 mois maximum</strong> d'absence continue (congés payés + jours de repos cumulés) ;</li>
+        <li><strong>au moins 2 jours de repos par trimestre</strong>.</li>
+      </ul>
+      <p>Des dérogations sont possibles avec l'accord de la Direction.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.5</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🔁</span> Renoncer à des jours de repos</h3>
+      <p>Vous pouvez choisir de travailler davantage en <strong>renonçant à une partie de vos jours de repos</strong> (et non à vos congés payés, qui restent intouchables, ni à vos repos hebdomadaires ou jours fériés). C'est possible <strong>uniquement d'un commun accord</strong> avec la Direction, sur votre demande écrite, dans la limite de <strong>235 jours/an</strong>. Les jours de repos rachetés sont alors payés avec une <strong>majoration de 10 %</strong>, fixée par avenant.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.11</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🖥️</span> Comment vos jours sont suivis</h3>
+      <p>Vous déclarez vos journées et demi-journées (travail, repos, congés) dans le <strong>logiciel de gestion des temps</strong>. Le relevé est <strong>examiné chaque mois par votre manager et le Service RH</strong>, validé d'un commun accord avec vous, et le décompte figure sur votre bulletin de salaire.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.9 et 2.1.11</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">➖</span> Vos absences</h3>
+      <p>Une journée d'absence non assimilée à du travail effectif <strong>réduit proportionnellement le nombre de jours à travailler</strong>, jamais directement vos jours de repos. Exemple : 60 jours d'arrêt maladie ramènent un forfait de 218 à 158 jours à travailler.</p>
+      <span class="src">Accord CYIM, art. 2.2.1.8</span>
+    </div>
+  </div>
+
+  <!-- DEPLACEMENTS -->
+  <h2 class="section" id="deplacements"><span class="ico">✈️</span>Déplacements et congrès</h2>
+  <p class="lead">L'activité de CYIM amène régulièrement les cadres à se déplacer, en France comme à l'étranger, notamment pour des congrès qui se tiennent souvent le week-end. Vos droits dépendent du moment du déplacement et de ce que vous faites ce jour-là.</p>
+
+  <div class="note mint"><strong>Le point clé.</strong> Un déplacement pendant un jour travaillé est déjà compris dans votre forfait. Ce qui ouvre des droits, c'est le déplacement ou le travail réalisé <strong>en dehors d'un jour travaillé</strong>, typiquement un week-end de congrès.</div>
+
+  <!-- SIMULATEUR DE SITUATION -->
+  <div class="depsim">
+    <div class="ds-head">
+      <h3>🎯 Testez votre situation</h3>
+      <p>Sélectionnez votre cas pour voir les droits qui s'appliquent.</p>
+    </div>
+    <div class="ds-grid">
+      <div class="ds-questions">
+        <div class="qblock">
+          <span class="qlabel">1. Quand a lieu ce jour ?</span>
+          <div class="opts" id="q-jour">
+            <button class="opt" data-v="travaille">Un jour travaillé</button>
+            <button class="opt" data-v="samedi">Un samedi</button>
+            <button class="opt" data-v="dimanche">Un dimanche ou férié</button>
+          </div>
+        </div>
+        <div class="qblock">
+          <span class="qlabel">2. Que faites-vous ce jour-là ?</span>
+          <div class="opts" id="q-act">
+            <button class="opt" data-v="deplacement">Je me déplace (trajet)</button>
+            <button class="opt" data-v="travail">Je travaille sur le congrès</button>
+          </div>
+        </div>
+        <div class="qblock" id="qb-duree" style="display:none;">
+          <span class="qlabel">3. Durée du déplacement</span>
+          <div class="opts" id="q-duree">
+            <button class="opt" data-v="court">4 h ou moins</button>
+            <button class="opt" data-v="long">Plus de 4 h</button>
+          </div>
+        </div>
+        <div class="qblock" id="qb-route" style="display:none;">
+          <span class="qlabel">4. Vous conduisez un véhicule chargé de matériel sur plus de 250 km ?</span>
+          <div class="opts" id="q-route">
+            <button class="opt" data-v="oui">Oui</button>
+            <button class="opt" data-v="non">Non</button>
+          </div>
+        </div>
+      </div>
+      <div class="ds-result" id="ds-result">
+        <div class="rtitle">Vos droits</div>
+        <div class="rnone" id="ds-none">Sélectionnez vos réponses à gauche pour afficher le résultat.</div>
+        <div id="ds-items"></div>
+      </div>
+    </div>
+    <div class="ds-foot">Indicatif, sur la base de l'accord CYIM (art. 2.1.9.3, 2.1.10.2 et 3.1). Pensez à déclarer vos déplacements dans le logiciel de gestion des temps pour être indemnisé.</div>
+  </div>
+
+  <div class="cards" style="margin-top:18px;">
+    <div class="card">
+      <h3><span class="e">🗓️</span> Déplacement un jour travaillé</h3>
+      <p>Le temps de déplacement est <strong>compris dans votre forfait</strong> et considéré comme faisant partie de votre travail déjà rémunéré. Il n'ouvre pas de contrepartie supplémentaire.</p>
+      <span class="src">Accord CYIM, art. 2.1.9.3</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">💶</span> Déplacement hors jour travaillé</h3>
+      <p>Un déplacement réalisé un jour non travaillé donne droit à une <strong>contrepartie financière forfaitaire</strong> :</p>
+      <ul>
+        <li>déplacement <strong>de 4 h ou moins : 40 € bruts</strong> ;</li>
+        <li>déplacement <strong>de plus de 4 h : 80 € bruts</strong>.</li>
+      </ul>
+      <span class="src">Accord CYIM, art. 2.1.9.3</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🛌</span> Déplacement un dimanche ou férié</h3>
+      <p>Si ce déplacement hors jour travaillé tombe un <strong>dimanche ou un jour férié</strong>, vous avez en plus un <strong>repos de récupération égal à 100 % du temps de déplacement</strong>, dans la limite d'une journée.</p>
+      <span class="src">Accord CYIM, art. 2.1.9.3</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🎤</span> Travailler un dimanche ou férié</h3>
+      <p>Si vous <strong>travaillez</strong> (et pas seulement vous déplacez) un dimanche ou un jour férié, par exemple pendant un congrès, vous percevez une <strong>prime égale à 50 % du salaire journalier</strong> (salaire annuel brut hors prime / 218). Elle s'applique par demi-journée de travail effectif.</p>
+      <span class="src">Accord CYIM, art. 2.1.10.2</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🚗</span> Prime de route</h3>
+      <p>Si vous vous rendez sur un lieu de congrès <strong>en véhicule en transportant du matériel</strong>, et que vous avez participé à son chargement / déchargement ou à la conduite, vous touchez une <strong>prime de 15 € bruts par trajet</strong>. Elle se déclenche au-delà de <strong>250 km</strong> entre la société et le lieu du congrès.</p>
+      <span class="src">Accord CYIM, art. 3.1</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🧾</span> Frais et transport</h3>
+      <p>Le mode de transport est choisi avec la Direction (train 2ᵉ classe, avion classe éco privilégiés). Les frais de repas et d'hébergement sont pris en charge selon les modalités fixées par note de service.</p>
+      <span class="src">Accord CYIM, art. 2.1.9.1</span>
+    </div>
+  </div>
+
+  <!-- ASTREINTE -->
+  <h2 class="section" id="astreinte"><span class="ico">🛡️</span>L'astreinte</h2>
+  <p class="lead">Pour assurer la continuité de service pendant un événement, vous pouvez être placé en astreinte. Voici ce que cela recouvre et comment c'est compensé.</p>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="e">📖</span> Ce qu'est une astreinte</h3>
+      <p>L'astreinte est une période, en dehors de votre travail habituel et de vos locaux, pendant laquelle vous devez <strong>rester joignable et disponible</strong> (sous 15 minutes) pour répondre à une demande de CYIM, sans être en permanence à sa disposition. CYIM vous fournit les moyens nécessaires (ordinateur, téléphone).</p>
+      <p>Tant que vous n'êtes pas appelé, ce temps <strong>n'est pas du travail effectif</strong> : il est compté dans vos repos. Mais il donne lieu à une compensation, ci-dessous.</p>
+      <span class="src">Accord CYIM, art. 2.1.8.1 à 2.1.8.3</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">💰</span> Compensation de l'astreinte</h3>
+      <p>Que vous soyez appelé ou non, l'astreinte vous donne une <strong>contrepartie financière forfaitaire</strong>, calculée sur votre forfait journalier (salaire annuel brut / 218) :</p>
+      <ul>
+        <li>astreinte d'une <strong>demi-journée</strong> (6 h maximum) : <strong>25 %</strong> du forfait journalier ;</li>
+        <li>astreinte d'une <strong>journée</strong> (12 h maximum) : <strong>50 %</strong> du forfait journalier.</li>
+      </ul>
+      <p>Cette contrepartie est due intégralement, même sans intervention, et couvre déjà les 30 premières minutes d'intervention éventuelle.</p>
+      <span class="src">Accord CYIM, art. 2.1.8.4</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🔧</span> Si vous intervenez</h3>
+      <p>La première demi-heure d'intervention est comprise dans le forfait d'astreinte. <strong>Au-delà de 30 minutes</strong>, le temps d'intervention vous donne un <strong>repos équivalent</strong> à sa durée. Dès que le cumul des interventions atteint <strong>4 heures</strong>, une <strong>demi-journée de repos</strong> vous est attribuée, et votre compteur de jours à travailler est réduit d'autant.</p>
+      <span class="src">Accord CYIM, art. 2.1.8.4</span>
+    </div>
+    <div class="card">
+      <h3><span class="e">🧾</span> Bien la déclarer</h3>
+      <p>Chaque astreinte doit être <strong>saisie dans le logiciel de gestion des temps</strong> (en journée ou demi-journée), et la durée d'intervention notée en commentaire. Les astreintes sont payées du 21 du mois précédent au 20 du mois en cours. <strong>Une astreinte non déclarée n'est pas rémunérée.</strong></p>
+      <span class="src">Accord CYIM, art. 2.1.8.5</span>
+    </div>
+  </div>
+
+  <!-- ALERTE -->
+  <h2 class="section" id="alerte"><span class="ico">🚨</span>En cas de surcharge : le dispositif d'alerte</h2>
+  <p class="lead">Si l'organisation ou la charge de travail pose difficulté, une procédure écrite existe. Elle vous protège, et engage l'entreprise.</p>
+  <div class="steps">
+    <div class="step"><div><h3>Vous émettez une alerte écrite</h3><p>Auprès de votre responsable hiérarchique, dès qu'une difficulté porte sur l'organisation ou la charge de travail.</p></div></div>
+    <div class="step"><div><h3>Vous êtes reçu sous 8 jours</h3><p>Le responsable doit vous recevoir dans les 8 jours suivant l'alerte.</p></div></div>
+    <div class="step"><div><h3>Des mesures écrites sont décidées</h3><p>Le responsable formule par écrit les mesures de traitement de la situation. Elles font l'objet d'un compte rendu écrit et d'un suivi.</p></div></div>
+    <div class="step"><div><h3>L'employeur peut aussi déclencher un entretien</h3><p>S'il constate que votre organisation ou votre charge aboutit à des situations anormales, l'entreprise organise de son côté un entretien avec vous.</p></div></div>
+  </div>
+  <div class="note mint"><strong>Bon à savoir.</strong> Le suivi de la charge et l'entretien annuel ne sont pas de simples formalités : la jurisprudence (Cass. soc. 10 janvier 2024) considère qu'un employeur qui y manque peut voir la convention de forfait privée d'effet. C'est une garantie réelle, pour vous comme pour CYIM. <em>(Accord CYIM, art. 2.2.1.6 et 2.2.1.13)</em></div>
+
+  <!-- FAQ -->
+  <h2 class="section" id="faq"><span class="ico">❓</span>Vos questions fréquentes</h2>
+  <div class="controls">
+    <button class="ctrl-btn" id="openAll">Tout déplier</button>
+    <button class="ctrl-btn" id="closeAll">Tout replier</button>
+  </div>
+  <div id="faqList"></div>
+
+  <!-- RH -->
+  <div class="rh">
+    <span class="ico">💬</span>
+    <div>
+      <h3>Une question sur votre forfait ?</h3>
+      <p>Le Service RH se tient à votre disposition. Écrivez à <a class="mail" href="mailto:servicerh@cyim.com">servicerh@cyim.com</a>.</p>
+    </div>
+    <div class="btn-mail"><a href="mailto:servicerh@cyim.com">Écrire au Service RH</a></div>
+  </div>
+
+  <footer>
+    Document pédagogique interne, à valeur informative. Il ne se substitue pas à l'<a href="Accord_entreprise_CYIM_amenagement_temps_de_travail.pdf" target="_blank" rel="noopener">accord d'entreprise CYIM du 1ᵉʳ août 2023</a>, à la convention collective SYNTEC (IDCC 1486) ni au Code du travail, qui font seuls foi.<br>
+    Dernière mise à jour : juin 2026.
+  </footer>
+
+</div>
+
+<script>
+/* ===== onglets ===== */
+document.getElementById('burger').addEventListener('click',function(){document.getElementById('tabs').classList.toggle('open');});
+var tabLinks=Array.from(document.querySelectorAll('#tabs a'));
+var secs=tabLinks.map(function(a){return document.querySelector(a.getAttribute('href'));});
+function onScroll(){var y=window.scrollY+90,act=0;for(var i=0;i<secs.length;i++){if(secs[i]&&secs[i].offsetTop<=y)act=i;}tabLinks.forEach(function(a,i){a.classList.toggle('active',i===act);});}
+window.addEventListener('scroll',onScroll,{passive:true});
+tabLinks.forEach(function(a){a.addEventListener('click',function(){document.getElementById('tabs').classList.remove('open');});});
+
+/* ===== fériés ===== */
+function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da);}
+function feries(y){var P=easter(y),lp=new Date(P);lp.setDate(P.getDate()+1);var as=new Date(P);as.setDate(P.getDate()+39);var pe=new Date(P);pe.setDate(P.getDate()+50);var s=new Set();[new Date(y,0,1),new Date(y,4,1),new Date(y,4,8),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25),lp,as,pe].forEach(function(d){s.add(d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate());});return s;}
+var MONTHS=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+function reposFor(year,forfait){var fset=feries(year),ouvrables=0;var cur=new Date(year,0,1);while(cur.getFullYear()===year){var dow=cur.getDay();var key=cur.getFullYear()+'-'+cur.getMonth()+'-'+cur.getDate();if(dow!==0&&dow!==6&&!fset.has(key))ouvrables++;cur.setDate(cur.getDate()+1);}var trav=ouvrables-25;var r=trav-forfait;return {trav:trav,repos:r<0?0:r};}
+function build(){
+  var year=parseInt(document.getElementById('annee').value,10);
+  var forfait=parseInt(document.getElementById('forfait').value,10)||218;if(forfait>218)forfait=218;
+  document.getElementById('pct').textContent='('+Math.round(forfait/218*100)+' %)';
+  var fset=feries(year),feriesSemaine=0,perMonth=[];for(var m=0;m<12;m++)perMonth.push([]);
+  var cur=new Date(year,0,1);
+  while(cur.getFullYear()===year){var dow=cur.getDay();var key=cur.getFullYear()+'-'+cur.getMonth()+'-'+cur.getDate();var isWE=(dow===0||dow===6),isF=fset.has(key),type;if(isWE)type='we';else if(isF){type='ferie';feriesSemaine++;}else type='work';perMonth[cur.getMonth()].push({day:cur.getDate(),type:type});cur.setDate(cur.getDate()+1);}
+  var rr=reposFor(year,forfait);
+  document.getElementById('roRepos').textContent=rr.repos;
+  document.getElementById('roTrav').textContent=rr.trav;
+  document.getElementById('roFeries').textContent=feriesSemaine;
+  var workIdx=[];perMonth.forEach(function(mo,mi){mo.forEach(function(d,di){if(d.type==='work')workIdx.push([mi,di]);});});
+  if(rr.repos>0){var stepN=Math.floor(workIdx.length/rr.repos);for(var r=0;r<rr.repos;r++){var pos=Math.min(workIdx.length-1,Math.floor(stepN/2)+r*stepN);var ref=workIdx[pos];if(ref)perMonth[ref[0]][ref[1]].type='rest';}}
+  var cal=document.getElementById('cal');cal.innerHTML='';
+  for(var mm=0;mm<12;mm++){var box=document.createElement('div');box.className='month';var h=document.createElement('h4');h.textContent=MONTHS[mm];box.appendChild(h);var dd=document.createElement('div');dd.className='days';var first=new Date(year,mm,1).getDay();var pad=(first===0?6:first-1);for(var p=0;p<pad;p++){var sp=document.createElement('div');sp.className='d';sp.style.visibility='hidden';dd.appendChild(sp);}perMonth[mm].forEach(function(d){var cell=document.createElement('div');cell.className='d '+d.type;cell.title=d.day+' '+MONTHS[mm];dd.appendChild(cell);});box.appendChild(dd);cal.appendChild(box);}
+}
+document.getElementById('annee').addEventListener('change',build);
+document.getElementById('forfait').addEventListener('input',build);
+(function(){var now=new Date().getFullYear();var sel=document.getElementById('annee');if(Array.from(sel.options).some(function(o){return parseInt(o.value,10)===now;}))sel.value=String(now);document.getElementById('anneeRef').textContent=now;document.getElementById('reposRef').textContent=reposFor(now,218).repos;})();
+build();onScroll();
+
+/* ===== simulateur déplacements ===== */
+var ds={jour:null,act:null,duree:null,route:null};
+function dsBind(group,key){
+  document.querySelectorAll('#'+group+' .opt').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#'+group+' .opt').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');ds[key]=b.getAttribute('data-v');dsRender();
+    });
+  });
+}
+dsBind('q-jour','jour');dsBind('q-act','act');dsBind('q-duree','duree');dsBind('q-route','route');
+function dsRender(){
+  var none=document.getElementById('ds-none');
+  var box=document.getElementById('ds-items');
+  document.getElementById('qb-duree').style.display=(ds.act==='deplacement')?'block':'none';
+  document.getElementById('qb-route').style.display=(ds.act==='deplacement')?'block':'none';
+  if(ds.act!=='deplacement'){ds.duree=null;ds.route=null;document.querySelectorAll('#q-duree .opt,#q-route .opt').forEach(function(x){x.classList.remove('sel');});}
+  var ready = ds.jour && ds.act && (ds.act==='travail' || (ds.act==='deplacement' && ds.duree && ds.route));
+  if(!ready){none.style.display='block';box.innerHTML='';return;}
+  none.style.display='none';
+  var items=[];
+  function add(icon,html){items.push("<div class='ritem'><span class='ricon'>"+icon+"</span><span>"+html+"</span></div>");}
+  if(ds.act==='deplacement'){
+    if(ds.jour==='travaille'){
+      add("✓","Ce déplacement a lieu un <b>jour travaillé</b> : il est <b>compris dans votre forfait</b>. Pas de contrepartie spécifique.");
+    } else {
+      if(ds.duree==='court') add("€","Contrepartie de <b>40 € bruts</b> (déplacement de 4 h ou moins, hors jour travaillé).");
+      else add("€","Contrepartie de <b>80 € bruts</b> (déplacement de plus de 4 h, hors jour travaillé).");
+      if(ds.jour==='dimanche') add("🛌","En plus, un <b>repos de récupération</b> égal à 100 % du temps de déplacement (maximum 1 journée), car c'est un dimanche ou un jour férié.");
+      if(ds.route==='oui') add("🚗","<b>Prime de route : 15 € bruts</b> pour ce trajet (véhicule chargé de matériel, plus de 250 km).");
+    }
+  } else {
+    if(ds.jour==='dimanche'){
+      add("€","<b>Prime de 50 %</b> du salaire journalier, par demi-journée travaillée (travail un dimanche ou un jour férié).");
+    } else if(ds.jour==='samedi'){
+      add("ℹ","Le travail effectif du samedi est décompté en jours, comme les autres jours de votre forfait. La prime de 50 % concerne uniquement le <b>dimanche et les jours fériés</b>.");
+    } else {
+      add("✓","Travail un jour ouvré classique : ce temps est <b>compté dans votre forfait</b> en journées ou demi-journées, sans prime spécifique.");
+    }
+  }
+  items.push("<div class='ritem'><span class='ricon'>🧾</span><span class='rmuted'>Déclarez le tout dans le logiciel de gestion des temps pour être indemnisé.</span></div>");
+  box.innerHTML=items.join('');
+}
+
+/* ===== FAQ ===== */
+var faqData=[
+  {q:"Est-ce que je peux faire des heures supplémentaires ?",type:"non",badge:"Non",
+   html:"<p>La notion d'heures supplémentaires ne s'applique pas au forfait jours : vous n'êtes pas décompté en heures. C'est la contrepartie de votre autonomie. Votre protection se situe ailleurs : votre charge de travail doit rester raisonnable, et elle est suivie chaque mois avec votre manager.</p>"},
+  {q:"La journée de solidarité, je dois la travailler en plus ?",type:"non",badge:"Non",
+   html:"<p>Non. Votre forfait de <strong>218 jours inclut déjà la journée de solidarité</strong>. Concrètement, c'est 217 jours de travail plus 1 journée de solidarité. Vous n'avez aucun jour supplémentaire à poser ou à travailler à ce titre.</p>"},
+  {q:"Pourquoi mon nombre de jours de repos change-t-il chaque année ?",type:"nuance",badge:"À comprendre",
+   html:"<p>Parce que ces jours sont une variable d'ajustement. On calcule combien de jours sont travaillables dans l'année selon le calendrier réel, puis on retire votre forfait. Une année avec beaucoup de jours fériés en week-end vous donne plus de jours de repos, mais vous travaillez toujours le même nombre de jours au total. Le simulateur le montre année par année.</p>"},
+  {q:"Puis-je travailler en forfait réduit ?",type:"oui",badge:"Oui",
+   html:"<p>Oui. Par convention individuelle, vous pouvez convenir d'un <strong>forfait réduit</strong> portant sur un nombre de jours inférieur à 218 (par exemple 80 % ou 90 %), avec des journées ou demi-journées. Vous êtes alors payé au prorata et votre charge tient compte de cette réduction. Saisissez le nombre de jours souhaité dans le simulateur pour voir l'effet sur vos jours de repos.</p>"},
+  {q:"Mon employeur peut-il m'imposer de travailler plus de 218 jours ?",type:"non",badge:"Non",
+   html:"<p>Non. CYIM ne peut pas vous imposer de dépasser le nombre de jours de votre convention. Un dépassement (jusqu'à 235 jours maximum) suppose un <strong>accord des deux parties</strong>, votre <strong>demande écrite</strong>, et un avenant fixant la majoration de rachat (10 %). À l'inverse, vous ne pouvez pas non plus imposer à l'entreprise de racheter vos jours de repos.</p>"},
+  {q:"Je pars en congrès le week-end : à quoi ai-je droit ?",type:"oui",badge:"Oui",
+   html:"<p>Cela dépend de ce que vous faites ce jour-là. Si vous <strong>vous déplacez</strong> un jour non travaillé : 40 € bruts (4 h ou moins) ou 80 € bruts (plus de 4 h), et si c'est un dimanche ou un férié, un repos de récupération égal à 100 % du temps de trajet. Si vous <strong>travaillez</strong> un dimanche ou un férié : une prime de 50 % du salaire journalier par demi-journée. Et si vous conduisez un véhicule chargé de matériel sur plus de 250 km, une prime de route de 15 €. Le simulateur ci-dessus vous donne le détail selon votre cas.</p>"},
+  {q:"Et si ma charge devient ingérable malgré tout ?",type:"nuance",badge:"Le réflexe",
+   html:"<p>Parlez-en d'abord à votre manager : la charge est revue chaque mois et un point annuel y est consacré. Si la difficulté persiste, déclenchez l'<strong>alerte écrite</strong> : vous serez reçu sous 8 jours et des mesures écrites devront être décidées et suivies. Le Service RH (<a href='mailto:servicerh@cyim.com'>servicerh@cyim.com</a>) peut aussi vous accompagner.</p>"}
+];
+var faqEl=document.getElementById('faqList');
+faqData.forEach(function(item,i){
+  var div=document.createElement('div');div.className='faq-item';
+  div.innerHTML="<div class='faq-q'><span class='faq-num'>"+(i+1)+"</span><span class='qtext'>"+item.q+"</span><span class='arrow'>+</span></div><div class='faq-a'><div><div class='faq-a-inner'><span class='badge "+item.type+"'>"+item.badge+"</span>"+item.html+"</div></div></div>";
+  faqEl.appendChild(div);
+  div.querySelector('.faq-q').addEventListener('click',function(){div.classList.toggle('open');});
+});
+document.getElementById('openAll').addEventListener('click',function(){document.querySelectorAll('.faq-item').forEach(function(d){d.classList.add('open');});});
+document.getElementById('closeAll').addEventListener('click',function(){document.querySelectorAll('.faq-item').forEach(function(d){d.classList.remove('open');});});
+</script>
+</body>
+</html>
